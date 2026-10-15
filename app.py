@@ -56,18 +56,36 @@ def make_bunny(is_color=False):
     return img
 
 def make_carrot(is_color=False):
+    # Organic curved cartoon carrot with leafy fronds
     img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
     d = ImageDraw.Draw(img)
-    d.ellipse([85, 20, 105, 80], fill="#22C55E" if is_color else "#FFFFFF", outline="#1E293B", width=3)
-    d.ellipse([65, 30, 95, 75], fill="#16A34A" if is_color else "#FFFFFF", outline="#1E293B", width=3)
-    d.ellipse([105, 30, 135, 75], fill="#16A34A" if is_color else "#FFFFFF", outline="#1E293B", width=3)
-    d.polygon([(65, 70), (135, 70), (100, 185)], fill="#FB923C" if is_color else "#FFFFFF", outline="#1E293B")
-    d.line([(65, 70), (135, 70)], fill="#FB923C" if is_color else "#FFFFFF", width=6)
-    d.arc([65, 55, 135, 85], start=180, end=360, fill="#1E293B", width=3)
-    line_col = "#EA580C" if is_color else "#1E293B"
-    d.line([(80, 95), (110, 95)], fill=line_col, width=3)
-    d.line([(85, 125), (115, 125)], fill=line_col, width=3)
-    d.line([(92, 150), (108, 150)], fill=line_col, width=3)
+    leaf_col = "#22C55E" if is_color else "#FFFFFF"
+    
+    # Left, Center, Right leafy fronds
+    d.polygon([(90, 80), (65, 30), (95, 75)], fill=leaf_col, outline="#1E293B")
+    d.ellipse([56, 22, 85, 52], fill=leaf_col, outline="#1E293B", width=3)
+    d.polygon([(105, 75), (135, 30), (110, 80)], fill=leaf_col, outline="#1E293B")
+    d.ellipse([115, 22, 144, 52], fill=leaf_col, outline="#1E293B", width=3)
+    d.polygon([(95, 80), (100, 18), (105, 80)], fill=leaf_col, outline="#1E293B")
+    d.ellipse([91, 12, 109, 42], fill=leaf_col, outline="#1E293B", width=3)
+
+    # Tapered carrot body with rounded crown
+    c_fill = "#FB923C" if is_color else "#FFFFFF"
+    body_pts = [
+        (74, 82), (84, 73), (100, 70), (116, 73), (126, 82),
+        (123, 105), (117, 130), (109, 155), (102, 180),
+        (100, 184), (98, 180), (91, 155), (83, 130), (77, 105)
+    ]
+    d.polygon(body_pts, fill=c_fill, outline="#1E293B")
+    for i in range(len(body_pts)):
+        d.line([body_pts[i], body_pts[(i + 1) % len(body_pts)]], fill="#1E293B", width=4)
+
+    # Horizontal ridges
+    grv_col = "#EA580C" if is_color else "#1E293B"
+    d.line([(83, 98), (108, 96)], fill=grv_col, width=3)
+    d.line([(93, 120), (117, 118)], fill=grv_col, width=3)
+    d.line([(87, 142), (107, 140)], fill=grv_col, width=3)
+    d.line([(94, 162), (104, 161)], fill=grv_col, width=3)
     return img
 
 def make_puppy(is_color=False):
@@ -198,12 +216,102 @@ def make_cheese(is_color=False):
     d.ellipse([135, 112, 145, 122], fill="#FFFFFF", outline="#1E293B", width=2)
     return img
 
+def make_monkey(is_color=False):
+    img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    m_fill = "#B45309" if is_color else "#FFFFFF"
+    ear_inner = "#FDE68A" if is_color else "#F1F5F9"
+    d.ellipse([25, 60, 65, 100], fill=m_fill, outline="#1E293B", width=4)
+    d.ellipse([35, 70, 55, 90], fill=ear_inner)
+    d.ellipse([135, 60, 175, 100], fill=m_fill, outline="#1E293B", width=4)
+    d.ellipse([145, 70, 165, 90], fill=ear_inner)
+    d.ellipse([45, 50, 155, 150], fill=m_fill, outline="#1E293B", width=4)
+    d.ellipse([55, 75, 145, 145], fill=ear_inner, outline="#1E293B", width=3)
+    d.ellipse([70, 90, 84, 104], fill="#1E293B")
+    d.ellipse([73, 92, 77, 97], fill="#FFFFFF")
+    d.ellipse([116, 90, 130, 104], fill="#1E293B")
+    d.ellipse([119, 92, 123, 97], fill="#FFFFFF")
+    d.ellipse([92, 114, 98, 120], fill="#1E293B")
+    d.ellipse([102, 114, 108, 120], fill="#1E293B")
+    d.arc([85, 115, 115, 138], start=0, end=180, fill="#1E293B", width=3)
+    return img
+
+def make_banana(is_color=False):
+    img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    b_fill = "#FACC15" if is_color else "#FFFFFF"
+    pts = [
+        (45, 60), (70, 95), (105, 125), (145, 140), (165, 135),
+        (155, 148), (120, 150), (80, 132), (50, 100), (35, 65)
+    ]
+    d.polygon(pts, fill=b_fill, outline="#1E293B")
+    for i in range(len(pts)):
+        d.line([pts[i], pts[(i + 1) % len(pts)]], fill="#1E293B", width=4)
+    stem_col = "#65A30D" if is_color else "#1E293B"
+    d.polygon([(35, 65), (25, 52), (32, 48), (45, 60)], fill=stem_col, outline="#1E293B")
+    d.polygon([(165, 135), (175, 132), (170, 140), (155, 148)], fill="#78350F" if is_color else "#1E293B")
+    return img
+
+def make_squirrel(is_color=False):
+    img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    sq_col = "#D97706" if is_color else "#FFFFFF"
+    d.ellipse([110, 40, 175, 140], fill=sq_col, outline="#1E293B", width=4)
+    d.ellipse([45, 65, 135, 155], fill=sq_col, outline="#1E293B", width=4)
+    d.polygon([(65, 45), (85, 75), (55, 80)], fill=sq_col, outline="#1E293B")
+    d.line([(65, 45), (85, 75)], fill="#1E293B", width=4)
+    d.line([(65, 45), (55, 80)], fill="#1E293B", width=4)
+    d.ellipse([70, 90, 86, 110], fill="#1E293B")
+    d.ellipse([73, 92, 79, 100], fill="#FFFFFF")
+    d.ellipse([50, 115, 60, 125], fill="#1E293B")
+    return img
+
+def make_acorn(is_color=False):
+    img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    cap_col = "#78350F" if is_color else "#FFFFFF"
+    nut_col = "#D97706" if is_color else "#FFFFFF"
+    d.polygon([(95, 30), (105, 30), (102, 60), (98, 60)], fill="#78350F" if is_color else "#1E293B", outline="#1E293B")
+    d.ellipse([50, 50, 150, 95], fill=cap_col, outline="#1E293B", width=4)
+    nut_pts = [(58, 80), (142, 80), (135, 130), (100, 175), (65, 130)]
+    d.polygon(nut_pts, fill=nut_col, outline="#1E293B")
+    for i in range(len(nut_pts)):
+        d.line([nut_pts[i], nut_pts[(i + 1) % len(nut_pts)]], fill="#1E293B", width=4)
+    return img
+
+def make_frog(is_color=False):
+    img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    f_col = "#22C55E" if is_color else "#FFFFFF"
+    d.ellipse([50, 45, 90, 85], fill=f_col, outline="#1E293B", width=4)
+    d.ellipse([110, 45, 150, 85], fill=f_col, outline="#1E293B", width=4)
+    d.ellipse([40, 60, 160, 145], fill=f_col, outline="#1E293B", width=4)
+    d.ellipse([60, 52, 80, 78], fill="#FFFFFF", outline="#1E293B", width=2)
+    d.ellipse([67, 58, 77, 72], fill="#1E293B")
+    d.ellipse([120, 52, 140, 78], fill="#FFFFFF", outline="#1E293B", width=2)
+    d.ellipse([123, 58, 133, 72], fill="#1E293B")
+    d.arc([60, 85, 140, 125], start=0, end=180, fill="#1E293B", width=4)
+    return img
+
+def make_lilypad(is_color=False):
+    img = Image.new("RGBA", (200, 200), (255, 255, 255, 0))
+    d = ImageDraw.Draw(img)
+    pad_col = "#16A34A" if is_color else "#FFFFFF"
+    d.ellipse([40, 60, 160, 140], fill=pad_col, outline="#1E293B", width=4)
+    d.polygon([(100, 100), (160, 80), (155, 120)], fill="#FFFFFF", outline="#1E293B")
+    d.line([(100, 100), (160, 80)], fill="#1E293B", width=4)
+    d.line([(100, 100), (155, 120)], fill="#1E293B", width=4)
+    return img
+
 ANIMAL_THEMES = [
-    {"name": "Bunny & Carrot", "prompt": "Help Barnaby the Bunny find the Crunchy Carrot!", "animal": make_bunny, "goal": make_carrot},
+    {"name": "Bunny & Carrot", "prompt": "Help Barnaby the Bunny find the Sweet Carrot!", "animal": make_bunny, "goal": make_carrot},
     {"name": "Puppy & Bone", "prompt": "Help Pip the Puppy find the Tasty Bone!", "animal": make_puppy, "goal": make_bone},
-    {"name": "Kitten & Fish", "prompt": "Help Milo the Kitten catch the Golden Fish!", "animal": make_kitten, "goal": make_fish},
+    {"name": "Kitten & Fish", "prompt": "Help Milo the Kitten catch the Little Fish!", "animal": make_kitten, "goal": make_fish},
     {"name": "Bear & Honey", "prompt": "Help Barnaby the Bear reach the Honey Pot!", "animal": make_bear, "goal": make_honey},
-    {"name": "Mouse & Cheese", "prompt": "Help Squeaky the Mouse find the Swiss Cheese!", "animal": make_mouse, "goal": make_cheese}
+    {"name": "Mouse & Cheese", "prompt": "Help Squeaky the Mouse find the Swiss Cheese!", "animal": make_mouse, "goal": make_cheese},
+    {"name": "Monkey & Banana", "prompt": "Help Koko the Monkey grab the Ripe Banana!", "animal": make_monkey, "goal": make_banana},
+    {"name": "Squirrel & Acorn", "prompt": "Help Sammy the Squirrel collect the Golden Acorn!", "animal": make_squirrel, "goal": make_acorn},
+    {"name": "Frog & Lily Pad", "prompt": "Help Hoppy the Frog leap to the Sunny Lily Pad!", "animal": make_frog, "goal": make_lilypad}
 ]
 
 # =========================================================
@@ -312,9 +420,9 @@ def draw_maze_grid(c, maze, x_offset, y_offset, total_size, line_width=2.8, draw
         c.setDash()
 
 # =========================================================
-# PDF BUILDER WITH ANIMAL MASCOTS
+# PDF BUILDER (SUPPORTS BUILT-IN & CUSTOM CLIPART)
 # =========================================================
-def generate_kids_maze_book(num_mazes=20, grid_size=12, theme_mode="Cycle All", is_color=False):
+def generate_kids_maze_book(num_mazes=20, grid_size=12, mode="preset", theme_mode="Cycle All", is_color=False, custom_starts=None, custom_goals=None, custom_prompt="Find your way through the maze!"):
     buf = BytesIO()
     pdf = canvas.Canvas(buf, pagesize=(PAGE_W, PAGE_H))
     
@@ -326,45 +434,60 @@ def generate_kids_maze_book(num_mazes=20, grid_size=12, theme_mode="Cycle All", 
         content_w = PAGE_W - left_m - right_m
         c_x = left_m + (content_w / 2.0)
 
-        # Select mascot theme
-        if theme_mode == "Cycle All":
-            theme = ANIMAL_THEMES[idx % len(ANIMAL_THEMES)]
-        else:
-            theme = next(t for t in ANIMAL_THEMES if t["name"] == theme_mode)
+        # Maze Grid placement
+        maze_size = 5.7 * inch
+        maze_x = left_m + (content_w - maze_size) / 2.0
+        maze_y = 2.4 * inch
+        icon_dim = 1.15 * inch
 
-        # Header Title
         pdf.setFont("Helvetica-Bold", 24)
         pdf.setFillColor(colors.HexColor("#0F172A"))
         pdf.drawCentredString(c_x, 10.05 * inch, f"MAZE #{idx + 1}")
 
-        # Kid Mission Prompt
+        # Handling Custom Clipart vs Built-In Themes
+        if mode == "custom" and custom_starts and custom_goals:
+            # Custom Upload Mode
+            prompt_text = custom_prompt
+            start_file = custom_starts[idx % len(custom_starts)]
+            goal_file = custom_goals[idx % len(custom_goals)]
+            
+            # Reset streams to beginning
+            start_file.seek(0)
+            goal_file.seek(0)
+            
+            pdf.drawImage(ImageReader(start_file), maze_x - 0.15 * inch, maze_y + maze_size + 0.05 * inch, width=icon_dim, height=icon_dim, mask='auto')
+            pdf.drawImage(ImageReader(goal_file), maze_x + maze_size - icon_dim + 0.15 * inch, maze_y - icon_dim - 0.05 * inch, width=icon_dim, height=icon_dim, mask='auto')
+        else:
+            # Built-In Presets
+            if theme_mode == "Cycle All":
+                theme = ANIMAL_THEMES[idx % len(ANIMAL_THEMES)]
+            else:
+                theme = next(t for t in ANIMAL_THEMES if t["name"] == theme_mode)
+            prompt_text = theme["prompt"]
+
+            # Animal image
+            animal_img = theme["animal"](is_color=is_color)
+            a_io = BytesIO()
+            animal_img.save(a_io, format="PNG")
+            a_io.seek(0)
+            pdf.drawImage(ImageReader(a_io), maze_x - 0.15 * inch, maze_y + maze_size + 0.05 * inch, width=icon_dim, height=icon_dim, mask='auto')
+
+            # Goal image
+            goal_img = theme["goal"](is_color=is_color)
+            g_io = BytesIO()
+            goal_img.save(g_io, format="PNG")
+            g_io.seek(0)
+            pdf.drawImage(ImageReader(g_io), maze_x + maze_size - icon_dim + 0.15 * inch, maze_y - icon_dim - 0.05 * inch, width=icon_dim, height=icon_dim, mask='auto')
+
+        # Mission Prompt Header
         pdf.setFont("Helvetica-Bold", 11.5)
         pdf.setFillColor(colors.HexColor("#475569"))
-        pdf.drawCentredString(c_x, 9.65 * inch, theme["prompt"])
+        pdf.drawCentredString(c_x, 9.65 * inch, prompt_text)
 
-        # Maze Grid Sizing
-        maze_size = 5.7 * inch
-        maze_x = left_m + (content_w - maze_size) / 2.0
-        maze_y = 2.4 * inch
-
-        # Render Animal Mascot (Top Left Entrance)
-        animal_img = theme["animal"](is_color=is_color)
-        a_io = BytesIO()
-        animal_img.save(a_io, format="PNG")
-        a_io.seek(0)
-        icon_dim = 1.15 * inch
-        pdf.drawImage(ImageReader(a_io), maze_x - 0.15 * inch, maze_y + maze_size + 0.05 * inch, width=icon_dim, height=icon_dim, mask='auto')
-
+        # Entrance & Exit Text Badges
         pdf.setFillColor(colors.HexColor("#16A34A"))
         pdf.setFont("Helvetica-Bold", 11)
         pdf.drawString(maze_x + icon_dim, maze_y + maze_size + 0.45 * inch, "START ➔")
-
-        # Render Goal Mascot (Bottom Right Exit)
-        goal_img = theme["goal"](is_color=is_color)
-        g_io = BytesIO()
-        goal_img.save(g_io, format="PNG")
-        g_io.seek(0)
-        pdf.drawImage(ImageReader(g_io), maze_x + maze_size - icon_dim + 0.15 * inch, maze_y - icon_dim - 0.05 * inch, width=icon_dim, height=icon_dim, mask='auto')
 
         pdf.setFillColor(colors.HexColor("#DC2626"))
         pdf.drawRightString(maze_x + maze_size - icon_dim, maze_y - 0.55 * inch, "FINISH ➔")
@@ -443,7 +566,6 @@ def generate_kids_maze_book(num_mazes=20, grid_size=12, theme_mode="Cycle All", 
 # =========================================================
 st.markdown("""
 <style>
-    /* Hero Banner */
     .hero-banner {
         background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%);
         padding: 30px;
@@ -474,15 +596,6 @@ st.markdown("""
         margin-right: 8px;
         border: 1px solid rgba(255, 255, 255, 0.3);
     }
-    
-    /* Card Containers */
-    .config-card {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        border-radius: 14px;
-        padding: 20px;
-        margin-bottom: 15px;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -492,10 +605,10 @@ st.markdown("""
     <h1>🧩 KDP Activity & Puzzle Studio</h1>
     <p>Generate print-ready, high-converting children's adventure maze books with integrated animal mascots and verified KDP gutters.</p>
     <div>
-        <span class="badge-pill">🐾 5 Animal Mascots</span>
-        <span class="badge-pill">🖍️ 100% Coloring-Book Friendly</span>
+        <span class="badge-pill">🐾 8 Mascot Pairs</span>
+        <span class="badge-pill">🚀 Custom Clipart Support</span>
+        <span class="badge-pill">🖍️ Coloring-Book Friendly</span>
         <span class="badge-pill">📐 8.5" × 11" Auto Gutter</span>
-        <span class="badge-pill">⭐ Amazon KDP Approved</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -504,14 +617,17 @@ st.markdown("""
 # SIDEBAR
 # =========================================================
 with st.sidebar:
-    st.write("### 🐾 Mascot Roster")
-    st.caption("Included procedural characters:")
+    st.write("### 🐾 Built-in Mascot Roster")
+    st.caption("Included character pairs:")
     st.markdown("""
-    * 🐰 **Bunny** ➔ 🥕 Crunchy Carrot
+    * 🐰 **Bunny** ➔ 🥕 Sweet Carrot
     * 🐶 **Puppy** ➔ 🦴 Tasty Bone
-    * 🐱 **Kitten** ➔ 🐟 Golden Fish
+    * 🐱 **Kitten** ➔ 🐟 Little Fish
     * 🐻 **Bear** ➔ 🍯 Honey Pot
     * 🐭 **Mouse** ➔ 🧀 Swiss Cheese
+    * 🐵 **Monkey** ➔ 🍌 Ripe Banana
+    * 🐿️ **Squirrel** ➔ 🌰 Golden Acorn
+    * 🐸 **Frog** ➔ 🪷 Sunny Lily Pad
     """)
     st.divider()
     st.write("### ☕ Support This Engine")
@@ -555,13 +671,15 @@ with tab_maze:
             grid_dim = st.slider("Grid Dimension", min_value=6, max_value=25, value=14)
             
     with col_c2:
-        st.markdown("**2. Animal Mascots & Story**")
-        theme_options = ["Cycle All (Every page is a new adventure)"] + [t["name"] for t in ANIMAL_THEMES]
-        selected_theme = st.selectbox("Animal Mascots", theme_options, index=0)
-        theme_key = "Cycle All" if "Cycle All" in selected_theme else selected_theme
+        st.markdown("**2. Clipart / Mascot Mode**")
+        art_source = st.radio(
+            "Artwork Source",
+            ["🐾 Built-in Mascots (8 Varied Themes)", "🎨 Upload Custom Clipart (Dinos, Space, etc.)"],
+            index=0
+        )
 
     with col_c3:
-        st.markdown("**3. Page Count & Art Style**")
+        st.markdown("**3. Page Count & Print Style**")
         num_mazes = st.selectbox("Number of Puzzles", [10, 20, 30, 40, 50, 80], index=1)
         art_style = st.radio(
             "Interior Art Style",
@@ -570,18 +688,49 @@ with tab_maze:
         )
         is_color = "Full Color" in art_style
 
+    # Conditional Art Source Configuration
+    custom_starts = None
+    custom_goals = None
+    custom_prompt = "Find your way through the maze!"
+    theme_key = "Cycle All"
+
+    if "Built-in" in art_source:
+        theme_options = ["Cycle All (Every page is a new adventure)"] + [t["name"] for t in ANIMAL_THEMES]
+        selected_theme = st.selectbox("Built-in Theme Selection", theme_options, index=0)
+        theme_key = "Cycle All" if "Cycle All" in selected_theme else selected_theme
+    else:
+        st.markdown("##### 🎨 Custom Clipart Uploader")
+        st.caption("Upload your own transparent PNGs to publish specialized themes (e.g., Space Astronauts, Dinosaurs, Fairies). If you upload multiple files, they cycle automatically!")
+        
+        up_col1, up_col2 = st.columns(2)
+        with up_col1:
+            custom_starts = st.file_uploader("Upload Start Mascot PNG(s)", type=["png"], accept_multiple_files=True, key="custom_starts")
+        with up_col2:
+            custom_goals = st.file_uploader("Upload Finish Goal PNG(s)", type=["png"], accept_multiple_files=True, key="custom_goals")
+            
+        custom_prompt = st.text_input("Custom Story Prompt", value="Help find the path from START to FINISH!")
+
     # Blueprint info
     sol_pages = (num_mazes + 3) // 4
     total_pages = num_mazes + 1 + sol_pages
-    st.info(f"📐 **Book Blueprint:** **{num_mazes}** Animal Mazes + **1** Solutions Divider + **{sol_pages}** Solution Pages = **{total_pages} Total Interior Pages** (Standard 8.5\" × 11\" KDP Paperback)")
+    st.info(f"📐 **Book Blueprint:** **{num_mazes}** Mazes + **1** Solutions Divider + **{sol_pages}** Solution Pages = **{total_pages} Total Interior Pages** (Standard 8.5\" × 11\" KDP Paperback)")
 
-    if st.button("🚀 Generate Kids Adventure Maze Book", type="primary"):
-        with st.spinner("Drawing cute animal mascots and solving mazes..."):
+    can_generate = True
+    if "Upload Custom" in art_source and (not custom_starts or not custom_goals):
+        can_generate = False
+        st.warning("⚠️ Please upload at least one Start Mascot PNG and one Finish Goal PNG to generate your custom-themed book.")
+
+    if st.button("🚀 Generate Kids Adventure Maze Book", type="primary", disabled=not can_generate):
+        with st.spinner("Generating mazes and positioning story mascots..."):
             pdf_bytes, final_pages = generate_kids_maze_book(
                 num_mazes=num_mazes,
                 grid_size=grid_dim,
+                mode="custom" if "Upload Custom" in art_source else "preset",
                 theme_mode=theme_key,
-                is_color=is_color
+                is_color=is_color,
+                custom_starts=custom_starts,
+                custom_goals=custom_goals,
+                custom_prompt=custom_prompt
             )
             
         st.success(f"✅ Generated a print-ready {final_pages}-page Kids Maze Book!")
@@ -594,12 +743,12 @@ with tab_maze:
         img_p2 = render_pdf_page_to_image(pdf_bytes, page_index=1, scale=1.3) if num_mazes > 1 else None
         
         with pv1:
-            st.markdown("**Page 1 Preview (Mascot #1)**")
+            st.markdown("**Page 1 Preview (Adventure #1)**")
             if img_p1:
                 st.image(img_p1, use_container_width=True)
                 
         with pv2:
-            st.markdown("**Page 2 Preview (Next Adventure Mascot)**")
+            st.markdown("**Page 2 Preview (Next Adventure)**")
             if img_p2:
                 st.image(img_p2, use_container_width=True)
 
